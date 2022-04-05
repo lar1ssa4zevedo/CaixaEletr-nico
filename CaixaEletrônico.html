@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caixa Eletrônico</title>
+
+	<script>
+		var nome = prompt("Qual seu nome?");
+		alert ("Olá, " + nome + ", é um prazer ter você por aqui!");
+		var saldo = 851.65; 
+		var senha = 3589;
+
+		function inicio() {
+
+			var escolha = parseInt(prompt('Selecione uma opção 1.)Saldo 2.)Extrato 3.)Saque 4.)Depósito 5.)Transferência 6.)Sair'));
+
+			switch(escolha) {
+				case 1:
+					ver_saldo();
+					break;
+				case 2: 
+					ver_extrato();
+					break;
+				case 3:
+					fazer_saque();
+					break;
+				case 4:
+					fazer_deposito();					
+					break;
+				case 5:
+					transferencia();
+					break;
+				case 6: 
+					sair();
+					break;
+			}
+		}
+
+		function ver_saldo() {
+			var s = parseInt(prompt("Insira a senha:"));
+				if (s == senha) {
+					alert('Seu saldo atual é: ' + saldo);
+					inicio();
+				} else {
+					alert("Senha incorreta. Tente novamente.");
+					inicio();
+				}
+		}
+
+		function ver_extrato () {
+			var s = parseInt(prompt("Insira a senha:"));
+				if (s == senha) {
+					alert("04/04 - Mercado Bueno LTDA: -46,95 \n" +  "31/03 - Lojas Lulu: -75,50 \n" + "30/03 - 99App: -25,90 \n" + "28/03 - Depósito: +1.000,00" );
+					inicio();
+				} else {
+					alert("Senha incorreta. Tente novamente.");
+					inicio();
+				}	
+		}
+
+		function fazer_saque() {
+			var s = parseInt(prompt("Insira a senha:"));
+				if (s == senha){
+					var saque = parseFloat(prompt('Qual o valor para saque?'));
+					if (isNaN(saque) || saque === '') {
+						alert('Por favor, informe um número real!');
+						fazer_saque();
+					} 
+					else if (saque > saldo){
+						alert ("Operação não autorizada. Tente novamente.");
+						fazer_saque();
+					} 
+					else if (saque <=0){
+						alert ("Operação não autorizada. Tente novamente.");
+						fazer_saque();
+					}
+					else {
+						saldo -= saque;
+						ver_saldo();
+					}
+				}
+				else {
+					alert("Senha incorreta. Tente novamente.");
+					inicio();
+				}	
+		}
+
+		function fazer_deposito() {
+			var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+			// Not a Number
+			if (isNaN(deposito) || deposito === '') {
+				alert('Por favor, informe um número:');
+				fazer_deposito();
+			} else if (deposito <= 0) {
+				alert ("Operação não autorizada. Tente novamente.");
+				fazer_deposito();
+			} else {
+				saldo += deposito;
+				ver_saldo();
+			}
+		}
+		
+
+		function transferencia() {
+			var s = parseInt(prompt("Insira a senha:"));
+				if (s == senha) {
+					var conta = parseInt(prompt("Digite o número da conta que irá receber a transferência:"));
+					if (isNaN(conta) || conta === '') {
+						alert("Conta inválida. Tente novamente");
+						transferencia();
+					} else {
+						var valor = parseFloat(prompt("Insira o valor da transferência:"));
+						if (valor > saldo) {
+							alert("Operação não autorizada. Valor não disponível.")
+							transferencia();
+						} else if (valor <= 0) {
+							alert("Operação não autorizada. Tente novamente.");
+							transferencia();
+						}else {
+							saldo -= valor;
+							alert("Transferência concluída com sucesso!")
+							ver_saldo();
+						}
+					}
+				} else {
+					alert("Senha incorreta. Tente novamente.");
+					inicio();
+				}
+		}
+
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 6');
+			inicio();
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+				alert(nome + ", foi um prazer ter você por aqui!")
+				window.close();
+			} else {
+				inicio();
+			}
+		}
+		inicio();
+    </script>
+    </head>
+    <body>
+
+    </body></html>
+    
